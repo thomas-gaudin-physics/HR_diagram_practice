@@ -1,0 +1,31 @@
+#Created on Wed Feb 24 23:39:49 2021
+
+#@author: Thomas Gaudin
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+#change plot style
+plt.style.use('seaborn-dark')
+
+#load text file, skip titles
+hip_data = np.loadtxt('./hipparcos.txt', skiprows=1)
+
+#calculate absolute magnitude from visual magnitude, define b-v
+M = hip_data[:,1] + 5 + 5 * np.log10(hip_data[:,4])
+bv = hip_data[:,8]
+
+#create plot
+fig, ax = plt.subplots()
+ax.scatter(bv, M, c=bv, cmap=plt.cm.RdYlBu_r, s=3)
+
+#format labels
+ax.set_title('HR Diagram of Hipparcos Data', fontsize=20)
+ax.set_xlabel('B-V', fontsize=12)
+ax.set_ylabel('Absolute Magnitude', fontsize=12)
+
+#set axis and turn plot face black
+ax.axis([-0.2, 2.3, 25.4, 11.5])
+ax.set_facecolor('black')
+
+plt.show()
